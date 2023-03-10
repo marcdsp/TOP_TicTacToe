@@ -2,7 +2,7 @@
 
 // gameboard renders the gameboard
 const gameBoard = (function() {
- const moves = ['','','','','','','','','']
+ const moves = ['','','','X','X','X','','','']
 
 const render = () => {
   const board = document.getElementById("board");
@@ -20,6 +20,22 @@ const clearBoard = () => {
 }
 }
 
+const checkCell = () => {
+  if (moves[cell] === '') return false
+}
+
+const checkWinner = () => {
+  if (moves[0] !== '' && moves[0] === moves[1] && moves[1] === moves[2]) return moves [0]
+  else if (moves[3] !== '' && moves[3] === moves[4] && moves[4] === moves[5]) return moves [3]
+  else if (moves[6] !== '' && moves[6] === moves[7] && moves[7] === moves[8]) return moves [6]
+  else if (moves[0] !== '' && moves[0] === moves[3] && moves[3] === moves[6]) return moves [0]
+  else if (moves[1] !== '' && moves[1] === moves[4] && moves[4] === moves[7]) return moves [1]
+  else if (moves[2] !== '' && moves[2] === moves[5] && moves[5] === moves[8]) return moves [2]
+  else if (moves[0] !== '' && moves[0] === moves[4] && moves[4] === moves[7]) return moves [0]
+  else if (moves[2] !== '' && moves[2] === moves[4] && moves[4] === moves[6]) return moves [2]
+  else if (moves.includes('')) return 'playOn'
+}
+
 const updateCell = (cell,character) => {
   if (moves[cell] === '') {
     moves[cell] = character;
@@ -30,6 +46,8 @@ const updateCell = (cell,character) => {
   return {
     render,
     clearBoard,
+    checkCell,
+    checkWinner,
     updateCell,
   }
 
@@ -42,23 +60,25 @@ gameBoard.render();
 
 const playGame = (function() {
   let playerCharacter = "X"
+  const cellGroup = document.getElementById("board");
 
+  const checkWinner = () => {
 
-  const makeMove = () => {
-    if (gameBoard.updateCell(this.id.splice(-1),playerCharacter) !== false) { 
-      if (playerCharacter === "X") {
-        playerCharacter = "O"}
-        playerCharacter = "X"
-      }}
-return {
-  makeMove: makeMove
+  }
+
+  const cellPressed = e => {
+    theId = e.target.id;
+    lastChar = theId.charAt(theId.length - 1);
+    gameBoard.updateCell(lastChar,playerCharacter)
+    
 }  
+cellGroup.addEventListener('click',cellPressed)
   
+
 })()
 
 
-const cells = document.querySelector('.cell');
-cells.addEventListener('click', playGame.makeMove)
+
 
 
 
