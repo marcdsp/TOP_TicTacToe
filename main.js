@@ -2,15 +2,21 @@
 
 // gameboard renders the gameboard
 const gameBoard = (function() {
- const moves = ['','','','X','X','X','','','']
+ const moves = ['','','','','','','','','']
 
 const render = () => {
   const board = document.getElementById("board");
+  const playerXScore = document.getElementById("player1Score");
+  const tiesScore = document.getElementById("tiedScore");
+  const playerOScore = document.getElementById("player2Score");
   let htmlString ='';
   for (let i = 0; i < 9; i++) {
     htmlString += `<div class="cell" id="cell${i}">${moves[i]}</div>`;
 }
-board.innerHTML = htmlString
+board.innerHTML = htmlString;
+playerXScore.innerHTML = playerX.score;
+tiesScore.innerHTML = ties.score;
+playerOScore.innerHTML = playerO.score;
 }
 
 const clearBoard = () => {
@@ -20,8 +26,8 @@ const clearBoard = () => {
 }
 }
 
-const checkCell = () => {
-  if (moves[cell] === '') return false
+const checkCell = (index) => {
+  if (moves[index] === '') return 'playOn';
 }
 
 const checkWinner = () => {
@@ -33,14 +39,26 @@ const checkWinner = () => {
   else if (moves[2] !== '' && moves[2] === moves[5] && moves[5] === moves[8]) return moves [2]
   else if (moves[0] !== '' && moves[0] === moves[4] && moves[4] === moves[7]) return moves [0]
   else if (moves[2] !== '' && moves[2] === moves[4] && moves[4] === moves[6]) return moves [2]
-  else if (moves.includes('')) return 'playOn'
+  else return false
+}
+
+const checkTie = () => {
+  if (moves.includes('')) return true
 }
 
 const updateCell = (cell,character) => {
-  if (moves[cell] === '') {
     moves[cell] = character;
     render();
-  }
+  
+}
+
+const updateScoreboard = (character) => {
+  const score =[
+    {
+      "player": this.player
+    }
+  ]
+
 }
 
   return {
@@ -48,34 +66,57 @@ const updateCell = (cell,character) => {
     clearBoard,
     checkCell,
     checkWinner,
+    checkTie,
     updateCell,
   }
 
 })()
 
+
+
+const player = (name, symbol, score) => {
+  return { name, symbol, score};
+};
+
+const playerX = player('shingi', 'X', 0);
+const playerO = player('Marclar', 'O', 0);
+const ties = player('', '', 0);
+
 gameBoard.render();
 
-
-
-
 const playGame = (function() {
-  let playerCharacter = "X"
-  const cellGroup = document.getElementById("board");
+  let playerTurn = 'X'
 
-  const checkWinner = () => {
+  const makeMove = (e) => {
+    const theId = e.target.id;
+    const selectedCell = theId.charAt(theId.length - 1)
+    if (gameBoard.checkCell(selectedCell) === 'playOn') {
+    gameBoard.updateCell(selectedCell,playerTurn)
+      if (gameBoard.checkWinner() === false) {
+        if (gameBoard.checkTie() === true) {
+          if (playerTurn === 'X') {
+            playerTurn = playerO.symbol;
+          }
+          else playerTurn = playerX.symbol;
+      }
+    }
+    else if (gameBoard.checkWinner() === playerX.symbol) {
+      playerX.score = playerX.score + 1
+    }
 
-  }
+    }
+}   
 
-  const cellPressed = e => {
-    theId = e.target.id;
-    lastChar = theId.charAt(theId.length - 1);
-    gameBoard.updateCell(lastChar,playerCharacter)
-    
-}  
-cellGroup.addEventListener('click',cellPressed)
-  
 
-})()
+
+return {
+     makeMove,
+   }
+
+  })()
+
+const test = () => {console.log('test')};
+document.getElementById("board").addEventListener("click",playGame.makeMove);
 
 
 
