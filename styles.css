@@ -55,6 +55,30 @@
 
   /* --------------------------------------CSS Reset Above------------------------------- */
 
+:root {
+  --gameOver: 'no';
+  --pXaiToggle: 'off';
+  --pOaiToggle: 'off';
+  --cell0shade: rgb(221, 209, 209) ;
+  --cell0fontColor: rgb(50, 50, 50);
+  --cell1shade: rgb(221, 209, 209) ;
+  --cell1fontColor: rgb(50, 50, 50);
+  --cell1shade: rgb(221, 209, 209) ;
+  --cell2fontColor: rgb(50, 50, 50);
+  --cell3shade: rgb(221, 209, 209) ;
+  --cell3fontColor: rgb(50, 50, 50);
+  --cell4shade: rgb(221, 209, 209) ;
+  --cell4fontColor: rgb(50, 50, 50);
+  --cell5shade: rgb(221, 209, 209) ;
+  --cell5fontColor: rgb(50, 50, 50);
+  --cell6shade: rgb(221, 209, 209) ;
+  --cell6fontColor: rgb(50, 50, 50);
+  --cell7shade: rgb(221, 209, 209) ;
+  --cell7fontColor: rgb(50, 50, 50);
+  --cell8shade: rgb(221, 209, 209) ;
+  --cell8fontColor: rgb(50, 50, 50);
+}
+
 .gameBoard {
 display: flex;
 flex-wrap: wrap;
