@@ -104,6 +104,7 @@ display: flex;
 flex-wrap: wrap;
 width: 454px;
 padding-bottom: 50px;
+padding-top: 50px;
 }
 
 .cell {
@@ -138,18 +139,23 @@ font-weight: bold;
   grid-area: player1score;
   text-align: center;
   align-self: start;
+  padding-top: 20px;
 }
 
 #tiedContainer {
   grid-area: tiedScore;
   text-align: center;
   align-self: start;
+  padding-top: 20px;
+
 }
 
 #player2container {
   grid-area: player2score;
   text-align: center;
   align-self: start;
+  padding-top: 20px;
+
 }
 
 #gameButtons {
