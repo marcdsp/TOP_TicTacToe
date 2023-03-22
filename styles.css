@@ -79,16 +79,36 @@
   --cell8fontColor: rgb(50, 50, 50);
 }
 
+
+body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas: 
+  "header header header"
+  "player1score tiedScore player2score"
+  "message message message"
+  "board board board"
+  "buttons buttons buttons"
+}
+html {
+  margin:   auto;
+  max-width: 900px;
+}
+
 .gameBoard {
+  grid-area: board;
+  justify-self: center;
+  align-self: start;
 display: flex;
 flex-wrap: wrap;
 width: 454px;
-
+padding-bottom: 50px;
 }
 
 .cell {
-    height: 150px;
-    width: 150px;
+    height: 9rem;
+    width: 9rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -102,4 +122,85 @@ width: 454px;
 
 #cell0, #cell1, #cell2, #cell3, #cell4, #cell5 {
     border-bottom: solid 1px black;
+}
+
+#title {
+grid-area: header;
+height: 100px;
+background-color: rgb(180, 164, 196);
+text-align: center;
+padding-top: 40px;
+font-size: 4rem;
+font-weight: bold;
+}
+
+#player1container {
+  grid-area: player1score;
+  text-align: center;
+  align-self: start;
+}
+
+#tiedContainer {
+  grid-area: tiedScore;
+  text-align: center;
+  align-self: start;
+}
+
+#player2container {
+  grid-area: player2score;
+  text-align: center;
+  align-self: start;
+}
+
+#gameButtons {
+  grid-area: buttons;
+  justify-self: center;
+  align-self: center;
+}
+
+#gameMessage {
+  grid-area: message;
+  justify-self: center;
+  align-self: start;
+}
+
+.score {
+  font-size: 2.5rem;
+  padding: 20px;
+}
+
+.playerContainer {
+height: 100px;
+} 
+
+
+
+button {
+  margin: 20px;
+  outline: none;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-1 {
+  transition: all 0.3s ease;
+}
+.btn-1:hover {
+   box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
 }

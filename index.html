@@ -10,21 +10,28 @@
 </head>
 <body>
     <div id="title">Tic Tac Toe</div>
-    <div id="mainSection">
-        <div id="scoreBoard"></div>
-        <div id="player1container">Player X
-            <div id="player1Score" class="score"></div></div>
-            <div id="tiedContainer">Ties
-            <div id="tiedScore" class="score"></div></div>
-            <div id="player2container">Player O
-            <div id="player2Score" class="score"></div></div>
-    </div>
-    <div id="gameMessage"></div>
+    <div id="gameMessage">PLAYER Xs TURN</div>   
+
+            <div id="player1container" class="playerContainer">
+                <div class="playerName">Player X</div>
+                <div id="player1Score" class="score"></div>
+                <div id="activeX">▷</div>
+            </div>
+            <div id="tiedContainer" class="playerContainer">
+                <div class="playerName">Ties</div>
+                <div id="tiedScore" class="score"></div>
+            </div>
+            <div id="player2container" class="playerContainer">
+                <div class="playerName">Player O</div>
+                <div id="player2Score" class="score"></div>
+                <div id="activeO"></div>
+            </div>
+
     <div class="gameBoard" id="board">
     </div>
     <div id="gameButtons">
-        <button id="restartButton" type="button">Restart</button>
-        <button id="continueButton" type="button" disabled>Continue</button>
+            <button id="restartButton" class="custom-btn btn-1" type="button">Restart</button>
+            <button id="continueButton" class="custom-btn btn-1" type="button" disabled>Continue</button>
     </div>
 
     </div>

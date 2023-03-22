@@ -2,6 +2,9 @@ const gameBoard = (function() {
  const moves = ['','','','','','','','','']
  let isGameOver = '';
  const continueBtn = document.getElementById("continueButton");
+ const gameMsg = document.getElementById("gameMessage");  
+ const player1active = document.getElementById("activeX");
+ const player2active = document.getElementById("activeO");
 
 const render = () => {
   const board = document.getElementById("board");
@@ -25,6 +28,9 @@ const clearBoard = () => {
 }
 isGameOver = '';
 continueBtn.disabled = true;
+player1active.innerHTML = '▷'
+player2active.innerHTML = ''
+gameMsg.innerHTML = 'PLAYER X\s TURN'
 render();
 }
 
@@ -85,8 +91,14 @@ gameBoard.render();
 const playGame = (function() {
   let playerTurn = 'X'
   const continueBtn = document.getElementById("continueButton");
-  const restartBtn = document.getElementById("restartButton")
+  const restartBtn = document.getElementById("restartButton");
+  const gameMsg = document.getElementById("gameMessage");  
+  const player1active = document.getElementById("activeX");
+  const player2active = document.getElementById("activeO");
 
+
+
+  
 
   const makeMove = (e) => {
     const theId = e.target.id;
@@ -97,13 +109,23 @@ const playGame = (function() {
         if (gameBoard.checkTie() === true) {
           if (playerTurn === 'X') {
             playerTurn = playerO.symbol;
+            player2active.innerHTML = '▷'
+            player1active.innerHTML = ''
+            gameMsg.innerHTML = 'PLAYER O\s TURN'
           }
-          else playerTurn = playerX.symbol;
+          else {playerTurn = playerX.symbol;
+          player1active.innerHTML = '▷'
+          player2active.innerHTML = ''
+          gameMsg.innerHTML = 'PLAYER X\s TURN'
+          }
       }
       else {
         ties.score = ties.score + 1;
         playerTurn = 'X';
         gameBoard.setIsGameOver(true);
+        player2active.innerHTML = ''
+        player1active.innerHTML = ''
+        gameMsg.innerHTML = "IT'S A TIE!"
         continueBtn.disabled = false;
         gameBoard.render();
       }
@@ -112,6 +134,8 @@ const playGame = (function() {
       playerX.score = playerX.score + 1;
       playerTurn = 'X';
       gameBoard.setIsGameOver(true);
+      player1active.innerHTML = ''
+      gameMsg.innerHTML = "PLAYER X WINS!!!"
       continueBtn.disabled = false;
       gameBoard.render();
     }
@@ -119,6 +143,8 @@ const playGame = (function() {
       playerO.score = playerO.score + 1;
       playerTurn = 'X';
       gameBoard.setIsGameOver(true);
+      player2active.innerHTML = ''
+      gameMsg.innerHTML = "PLAYER O WINS!!!"
       continueBtn.disabled = false;
       gameBoard.render();
     }
