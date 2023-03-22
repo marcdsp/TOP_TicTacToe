@@ -1,8 +1,7 @@
-//create an array called gameBoard, this array has a fixed length of 9 0,1,2,3,4,5,6,7,8 the array is stored in a module, the module creates renders the gameBoard into the divs in the html. each div will be associated to a gameBoard array array number, it will have an exposed function that is called to update the array, we'll call this function "play" when called gameBoard.play() another function in the gameBoard will be "clear" gameBoard.clear() this will be used when a game is started. The last function will be to retrieve the content of any specific array in the gameBoard array this will be called from the game module so that it can check if a array is populated and also used for checking if there is a winner.
-
-// gameboard renders the gameboard
 const gameBoard = (function() {
  const moves = ['','','','','','','','','']
+ let isGameOver = '';
+ const continueBtn = document.getElementById("continueButton");
 
 const render = () => {
   const board = document.getElementById("board");
@@ -24,21 +23,27 @@ const clearBoard = () => {
 {
     moves[i] = '';
 }
+isGameOver = '';
+continueBtn.disabled = true;
+render();
 }
 
 const checkCell = (index) => {
-  if (moves[index] === '') return 'playOn';
+  if (isGameOver === true) {
+    return true
+  }
+  else if (moves[index] === '') return 'playOn';
 }
 
 const checkWinner = () => {
-  if (moves[0] !== '' && moves[0] === moves[1] && moves[1] === moves[2]) return moves [0]
-  else if (moves[3] !== '' && moves[3] === moves[4] && moves[4] === moves[5]) return moves [3]
-  else if (moves[6] !== '' && moves[6] === moves[7] && moves[7] === moves[8]) return moves [6]
-  else if (moves[0] !== '' && moves[0] === moves[3] && moves[3] === moves[6]) return moves [0]
-  else if (moves[1] !== '' && moves[1] === moves[4] && moves[4] === moves[7]) return moves [1]
-  else if (moves[2] !== '' && moves[2] === moves[5] && moves[5] === moves[8]) return moves [2]
-  else if (moves[0] !== '' && moves[0] === moves[4] && moves[4] === moves[7]) return moves [0]
-  else if (moves[2] !== '' && moves[2] === moves[4] && moves[4] === moves[6]) return moves [2]
+  if (moves[0] !== '' && moves[0] === moves[1] && moves[1] === moves[2]) return '012'
+  else if (moves[3] !== '' && moves[3] === moves[4] && moves[4] === moves[5]) return '345'
+  else if (moves[6] !== '' && moves[6] === moves[7] && moves[7] === moves[8]) return '678'
+  else if (moves[0] !== '' && moves[0] === moves[3] && moves[3] === moves[6]) return '036'
+  else if (moves[1] !== '' && moves[1] === moves[4] && moves[4] === moves[7]) return '147'
+  else if (moves[2] !== '' && moves[2] === moves[5] && moves[5] === moves[8]) return '258'
+  else if (moves[0] !== '' && moves[0] === moves[4] && moves[4] === moves[8]) return '048'
+  else if (moves[2] !== '' && moves[2] === moves[4] && moves[4] === moves[6]) return '246'
   else return false
 }
 
@@ -52,15 +57,6 @@ const updateCell = (cell,character) => {
   
 }
 
-const updateScoreboard = (character) => {
-  const score =[
-    {
-      "player": this.player
-    }
-  ]
-
-}
-
   return {
     render,
     clearBoard,
@@ -68,6 +64,8 @@ const updateScoreboard = (character) => {
     checkWinner,
     checkTie,
     updateCell,
+    getIsGameOver: () => isGameOver,
+    setIsGameOver: (value) => { isGameOver = value; },
   }
 
 })()
@@ -86,6 +84,9 @@ gameBoard.render();
 
 const playGame = (function() {
   let playerTurn = 'X'
+  const continueBtn = document.getElementById("continueButton");
+  const restartBtn = document.getElementById("restartButton")
+
 
   const makeMove = (e) => {
     const theId = e.target.id;
@@ -99,14 +100,44 @@ const playGame = (function() {
           }
           else playerTurn = playerX.symbol;
       }
+      else {
+        ties.score = ties.score + 1;
+        playerTurn = 'X';
+        gameBoard.setIsGameOver(true);
+        continueBtn.disabled = false;
+        gameBoard.render();
+      }
     }
-    else if (gameBoard.checkWinner() === playerX.symbol) {
-      playerX.score = playerX.score + 1
+    else if (playerTurn === 'X') {
+      playerX.score = playerX.score + 1;
+      playerTurn = 'X';
+      gameBoard.setIsGameOver(true);
+      continueBtn.disabled = false;
+      gameBoard.render();
+    }
+    else {
+      playerO.score = playerO.score + 1;
+      playerTurn = 'X';
+      gameBoard.setIsGameOver(true);
+      continueBtn.disabled = false;
+      gameBoard.render();
     }
 
     }
+    
 }   
 
+const clearScore = () => {
+  ties.score = 0;
+  playerX.score = 0;
+  playerO.score = 0;
+}
+
+continueBtn.addEventListener("click", gameBoard.clearBoard)
+restartBtn.addEventListener("click", () => {    
+  clearScore();    
+  gameBoard.clearBoard();
+})
 
 
 return {
@@ -118,23 +149,3 @@ return {
 const test = () => {console.log('test')};
 document.getElementById("board").addEventListener("click",playGame.makeMove);
 
-
-
-
-
-
-
-
-//game module will have the following function.
-// make Move
-// checkboard
-// checkwinner
-// when a player clicks on a div, get the div ID, check the associated gameboard array to make sure it is free to populate the gameboard, if it is not, do nothing, if it is, update the gameboard array calling gameBoard.play(), then check to see if there is a winner by iterating though winning combinations 
-// need a function to control who's turn it is... is this done in game or player 
-//game module is to be wrapped in a loop that tracks the score until one player has won 3 games, once done, game over
-
-
-//player factory function
-//a player has a name, a character (x or o) and a score
-// it has the following functions
-// update score
