@@ -1,212 +1,404 @@
 /*
   1. Use a more-intuitive box-sizing model.
 */
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  /*
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
     2. Remove default margin
   */
-  * {
-    margin: 0;
-  }
-  /*
+* {
+  margin: 0;
+}
+/*
     3. Allow percentage-based heights in the application
   */
-  html, body {
-    height: 100%;
-  }
-  /*
+html,
+body {
+  height: 100%;
+  background: #eecda3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ef629f,
+    #eecda3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ef629f,
+    #eecda3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+/*
     Typographic tweaks!
     4. Add accessible line-height
     5. Improve text rendering
   */
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    color: #444444;
-    line-height: 1.5rem;
-  }
-  /*
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: #444444;
+  line-height: 1.5rem;
+}
+/*
     6. Improve media defaults
   */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  /*
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
     7. Remove built-in form typography styles
   */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  /*
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
     8. Avoid text overflows
   */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  /*
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
     9. Create a root stacking context
   */
-  #cellroot, #cell__next {
-    isolation: isolate;
-  }
+#cellroot,
+#cell__next {
+  isolation: isolate;
+}
 
-  /* --------------------------------------CSS Reset Above------------------------------- */
+/* --------------------------------------CSS Reset Above------------------------------- */
 
 :root {
   --gameOver: 'no';
   --pXaiToggle: 'off';
   --pOaiToggle: 'off';
-  --cell0shade: rgb(221, 209, 209) ;
+  --cell0shade: rgb(221, 209, 209);
   --cell0fontColor: rgb(50, 50, 50);
-  --cell1shade: rgb(221, 209, 209) ;
+  --cell1shade: rgb(221, 209, 209);
   --cell1fontColor: rgb(50, 50, 50);
-  --cell1shade: rgb(221, 209, 209) ;
+  --cell1shade: rgb(221, 209, 209);
   --cell2fontColor: rgb(50, 50, 50);
-  --cell3shade: rgb(221, 209, 209) ;
+  --cell3shade: rgb(221, 209, 209);
   --cell3fontColor: rgb(50, 50, 50);
-  --cell4shade: rgb(221, 209, 209) ;
+  --cell4shade: rgb(221, 209, 209);
   --cell4fontColor: rgb(50, 50, 50);
-  --cell5shade: rgb(221, 209, 209) ;
+  --cell5shade: rgb(221, 209, 209);
   --cell5fontColor: rgb(50, 50, 50);
-  --cell6shade: rgb(221, 209, 209) ;
+  --cell6shade: rgb(221, 209, 209);
   --cell6fontColor: rgb(50, 50, 50);
-  --cell7shade: rgb(221, 209, 209) ;
+  --cell7shade: rgb(221, 209, 209);
   --cell7fontColor: rgb(50, 50, 50);
-  --cell8shade: rgb(221, 209, 209) ;
+  --cell8shade: rgb(221, 209, 209);
   --cell8fontColor: rgb(50, 50, 50);
 }
 
-
 body {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-areas: 
-  "header header header"
-  "player1score tiedScore player2score"
-  "message message message"
-  "board board board"
-  "buttons buttons buttons"
+  font-family: Raleway, 'Helvetica Neue', Helvetica;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    '. header header .'
+    '. scores scores .'
+    'board board board board'
+    '. message message .'
+    '. controlButtons controlButtons .'
+    '. aiSet aiSet .';
 }
+
 html {
-  margin:   auto;
-  max-width: 900px;
+  margin: auto;
 }
 
 .gameBoard {
   grid-area: board;
   justify-self: center;
-  align-self: start;
-display: flex;
-flex-wrap: wrap;
-width: 454px;
-padding-bottom: 50px;
-padding-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+  padding: 5px;
 }
 
 .cell {
-    height: 9rem;
-    width: 9rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    font-size: 3.5rem;
+  height: 30%;
+  width: 30%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 3.5rem;
+  margin: 8px;
+  border: solid 2px #eee;
+  background-color: #eee;
+  border-radius: 15px;
+  font-family: Raleway;
+  height: 110px;
+  width: 110px;
+  user-select: none;
+  box-shadow: 0 0 6px rgb(118, 94, 118);
+  cursor: pointer;
 }
 
-#cell0, #cell1, #cell3, #cell4, #cell6, #cell7 {
-    border-right: solid 1px black;
+.cell:visited {
+  background-color: #ce97d9;
+  position: absolute;
 }
 
-#cell0, #cell1, #cell2, #cell3, #cell4, #cell5 {
-    border-bottom: solid 1px black;
+.cell:hover {
+  transition: ease 0.5s;
+  background-color: #ce97d9;
+  transform: scale(1.02);
 }
 
 #title {
-grid-area: header;
-height: 100px;
-background-color: rgb(180, 164, 196);
-text-align: center;
-padding-top: 40px;
-font-size: 4rem;
-font-weight: bold;
+  grid-area: header;
+  height: 100px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px #454545;
+  background-color: rgba(114, 105, 169, 0.517);
+  text-align: center;
+  padding-top: 40px;
+  font-size: 3rem;
+  font-weight: bolder;
+  color: rgb(254, 254, 254);
 }
 
-#player1container {
-  grid-area: player1score;
+#scoreContainer {
+  grid-area: scores;
+  color: #eee;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-around;
   text-align: center;
   align-self: start;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-#tiedContainer {
+/* #tiedContainer {
   grid-area: tiedScore;
   text-align: center;
   align-self: start;
   padding-top: 20px;
-
 }
 
 #player2container {
   grid-area: player2score;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   align-self: start;
   padding-top: 20px;
+} */
 
-}
-
-#gameButtons {
-  grid-area: buttons;
-  justify-self: center;
-  align-self: center;
+#aiSetting {
+  grid-area: aiSet;
 }
 
 #gameMessage {
   grid-area: message;
   justify-self: center;
-  align-self: start;
+  align-self: center;
+  color: #eee;
 }
-
 .score {
   font-size: 2.5rem;
   padding: 20px;
 }
 
 .playerContainer {
-height: 100px;
-} 
-
-
-
-button {
-  margin: 20px;
-  outline: none;
+  height: 100px;
 }
 
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  padding: 10px 25px;
-  border: 2px solid #000;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
+@media only screen and (max-width: 480px) {
+  html {
+    max-width: 100dvw;
+  }
+
+  #title {
+    grid-area: header;
+    height: 70px;
+    margin-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 4px #454545;
+    background-color: rgba(114, 105, 169, 0.517);
+    text-align: center;
+    padding: 10px;
+    justify-content: space-around;
+    font-size: 2rem;
+
+    font-weight: bolder;
+    color: rgb(254, 254, 254);
+  }
+
+  .button-container {
+    transform: scale(0.75);
+  }
+
+  .gameBoard {
+    transform: scale(0.65);
+    margin-top: -50px;
+    margin-bottom: -80px;
+  }
+
+  body {
+    grid-template-areas:
+      '. header header .'
+      '. scores scores .'
+      'board board board board'
+      '. message message .'
+      'aiSet aiSet messageControls messageControls';
+  }
+}
+
+.button-container {
+  grid-area: controlButtons;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: rgba(119, 136, 153, 0.238);
+}
+
+.aiControls {
+  grid-area: controlButtons;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  border-radius: 20px;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: rgba(119, 136, 153, 0.238);
+}
+
+/* .special-glow-button {
+  transition: box-shadow 0.3s;
   cursor: pointer;
-  transition: all 0.3s ease;
+}
+
+.special-glow-button:hover {
+  box-shadow: 0 0 5px #b794f4;
+}
+
+.special-glow-button.active {
+  box-shadow: 0 0 15px #b794f4;
+} */
+
+img {
+  height: 40px;
+  width: 40px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+.btn-1 {
+  font-family: 'Inconsolata', 'Helvetica', 'Arial', sans-serif;
+  font-size: inherit;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  /*Button Color & Border*/
+  border: 4px solid #3c14d0;
+  color: #3c14d0;
+  background: #fff;
+  outline: none;
+  /*Position, Display, Size*/
   position: relative;
   display: inline-block;
+  padding: 15px 10px 14px;
+  cursor: pointer;
+  width: auto;
+}
+.btn-1:after {
+  /*Make a:after be as big as button*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*Give a:after Border & Background color*/
+  border: 2px solid #3c14d0;
+  background-color: #3c14d0;
+  /*Decide Location of a:after..this gives a           bottom right shadow*/
+  left: 4px;
+  top: 4px;
+  /*Place a:after behind button*/
+  z-index: -1;
+  content: '';
+  /*Animation/Transition Speed*/
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+.btn-2:hover {
+  top: 2px;
+  left: 2px;
+}
+.btn-2:hover:after {
+  top: -2px;
+  left: -2px;
 }
 
-.btn-1 {
-  transition: all 0.3s ease;
+.btn-2 {
+  font-family: 'Inconsolata', 'Helvetica', 'Arial', sans-serif;
+  font-size: inherit;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  /*Button Color & Border*/
+  border: 4px solid #2bb5b0;
+  color: #2bb5b0;
+  background: #fff;
+  outline: none;
+  /*Position, Display, Size*/
+  position: relative;
+  display: inline-block;
+  padding: 15px 10px 14px;
+  cursor: pointer;
+  width: auto;
 }
-.btn-1:hover {
-   box-shadow:
-   -7px -7px 20px 0px #fff9,
-   -4px -4px 5px 0px #fff9,
-   7px 7px 20px 0px #0002,
-   4px 4px 5px 0px #0001;
+.btn-2:after {
+  /*Make a:after be as big as button*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*Give a:after Border & Background color*/
+  border: 2px solid #2bb5b0;
+  background-color: #2bb5b0;
+  /*Decide Location of a:after..this gives a           bottom right shadow*/
+  left: 4px;
+  top: 4px;
+  /*Place a:after behind button*/
+  z-index: -1;
+  content: '';
+  /*Animation/Transition Speed*/
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+.btn-2:hover {
+  top: 2px;
+  left: 2px;
+}
+.btn-2:hover:after {
+  top: -2px;
+  left: -2px;
 }

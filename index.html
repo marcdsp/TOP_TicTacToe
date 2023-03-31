@@ -1,40 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300"
+      rel="stylesheet"
+    />
     <script type="text/javascript" src="main.js" defer></script>
     <title>T-T-T</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="title">Tic Tac Toe</div>
-    <div id="gameMessage">PLAYER Xs TURN</div>   
+    <div id="gameMessage">PLAYER Xs TURN</div>
+    <div class="button-container">
+      <button id="restartButton" class="custom-btn btn-1" type="button">
+        Restart
+      </button>
 
-            <div id="player1container" class="playerContainer">
-                <div class="playerName">Player X</div>
-                <div id="player1Score" class="score"></div>
-                <div id="activeX">▷</div>
-            </div>
-            <div id="tiedContainer" class="playerContainer">
-                <div class="playerName">Ties</div>
-                <div id="tiedScore" class="score"></div>
-            </div>
-            <div id="player2container" class="playerContainer">
-                <div class="playerName">Player O</div>
-                <div id="player2Score" class="score"></div>
-                <div id="activeO"></div>
-            </div>
-
-    <div class="gameBoard" id="board">
+      <button
+        id="continueButton"
+        class="custom-btn btn-1"
+        type="button"
+        disabled
+      >
+        Continue
+      </button>
     </div>
-    <div id="gameButtons">
-            <button id="restartButton" class="custom-btn btn-1" type="button">Restart</button>
-            <button id="continueButton" class="custom-btn btn-1" type="button" disabled>Continue</button>
+    <div id="scoreContainer">
+      <div id="player1container" class="playerContainer">
+        <div class="playerName">Player X</div>
+
+        <div id="player1Score" class="score"></div>
+        <div id="activeX">▷</div>
+      </div>
+      <div id="tiedContainer" class="playerContainer">
+        <div class="playerName">Ties</div>
+        <div id="tiedScore" class="score"></div>
+      </div>
+      <div id="player2container" class="playerContainer">
+        <div class="playerName">Player O</div>
+        <div id="player2Score" class="score"></div>
+        <div id="activeO"></div>
+      </div>
     </div>
 
-    </div>
+    <div class="gameBoard" id="board"></div>
 
-</body>
+    <b id="aiSetting" class="aiControls">
+      <button
+        alt="Human Button"
+        class="btn-2"
+        id="Human"
+      >Human</button>
+      <button
+        alt="AI Easy Button"
+        class="btn-2"
+        id="easyAI"
+      >Easy AI</button>
+      <button
+        alt="AI Hard Button"
+        class="btn-2"
+        id="hardAI"
+      >Hard AI</button>
+    </div>
+  </body>
 </html>
